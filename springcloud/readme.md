@@ -1,7 +1,24 @@
 #1.导入依赖
-     xxx - starter - xxx 导入对应的依赖
+     
+
+```
+xxx - starter - xxx 导入对应的依赖
+```
+
 #2.编写配置文件
 
 #3.开启这个功能
-    @Enablexxx 开启一个功能
+
+```
+  @Enablexxx 开启一个功能
+```
+
 #4.配置类
+
+#4.配置类
+
+# 注意事项:
+
+- ## Feign使用过程中,映射的Mapping地址一定要和服务提供者的映射Mapping地址一致,否则就会映射失败
+
+- ## Feign的内部使用的就是Ribbon
