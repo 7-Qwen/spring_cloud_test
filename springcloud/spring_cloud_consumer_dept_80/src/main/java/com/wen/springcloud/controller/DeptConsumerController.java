@@ -26,7 +26,7 @@ public class DeptConsumerController {
     RestTemplate restTemplate;
 
     //ribbon -> 通过服务名来访问
-//    private static final String REST_URL_PREFIX = "http://localhost:8001";
+    //private static final String REST_URL_PREFIX = "http://localhost:8001";
     private static final String REST_URL_PREFIX = "http://SPRINGCLOUD-PROVIDER-DEPT";
 
     //参数请求可以带在url中可以单独参数
