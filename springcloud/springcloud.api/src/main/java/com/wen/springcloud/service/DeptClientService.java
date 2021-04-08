@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2021/4/7 15:42
  */
 @Component
-@FeignClient(value = "SPRINGCLOUD-PROVIDER-DEPT")
+@FeignClient(value = "SPRINGCLOUD-PROVIDER-DEPT",fallbackFactory = DeptClientServiceFallbackFactory.class)
 public interface DeptClientService {
 
     @GetMapping("/dept/query/{id}")
@@ -26,4 +26,6 @@ public interface DeptClientService {
 
     @PostMapping("/dept/add")
     public boolean addDept(Dept dept);
+
+//    todo 服务降级
 }

@@ -38,4 +38,6 @@ public class DeptConsumerController {
         return this.deptClientService.addDept(dept);
     }
 
+    //todo 服务降级
+
 }

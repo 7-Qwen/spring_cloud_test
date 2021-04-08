@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring_cloud_provider_dept_8001</artifactId>
+    <artifactId>spring_cloud_provider_dept_hystrix_8001</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
