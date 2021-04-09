@@ -1,7 +1,8 @@
+ 
+
 # 一般的流程
 
 #1.导入依赖
-     
 
 ```
 xxx - starter - xxx 导入对应的依赖
@@ -51,7 +52,9 @@ API模块提供基础的pojo的对象,提供调用Feign的接口,Feign的作用�
 
 
 
-# SpringCloud相关|
+# SpringCloud一些注意事项
+
+### 一、Hystrix之服务熔断&服务降级
 
 ```java
 服务降级和服务熔断是两个维度考虑
@@ -130,3 +133,92 @@ public class DeptClientServiceFallbackFactory implements FallbackFactory {
 	
 ```
 
+### 二、网关zuul 
+
+```yaml
+网关的作用就是用来设置路由,用于在访问的时候先通过网关,网关再根据服务名称寻找到真正的接口
+
+#网关的主要配置:
+
+#设置服务器的端口
+server:
+  port: 9527
+
+#注册名称
+spring:
+  application:
+    name: spring_cloud_zuul
+
+#eureka本身相关的配置(注册到eureka的配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: zuul9527.com #实例化id
+    prefer-ip-address: true
+    
+#点击实例id时显示的内容
+info:
+  app.name: wen
+  company.name: hq
+
+#zuul相关的配置
+zuul:
+  routes:
+  #这里的routes是一个map集合 可以自定义
+  #xxx.serviceId: 这里填写要路由到的服务id或者名称
+  #xxx.path: 要路由的路径
+    mydept.serviceId: springcloud-provider-dept
+    mydept.path: /mydept/**
+    
+    #如果有多个
+    city.serviceId: xxx
+    city.path: /city/**
+  ignored-services: springcloud-provider-dept #不允许从这个服务访问,"*"表示隐藏全部的服务访问
+  prefix: /wuhu #设置公共的前缀 localhost:9257/wuhu/xxx/...
+```
+
+### 三、springcloud-config
+
+```yml
+CS架构 C->S->Git
+用户端连接配置服务中的配置 
+配置服务端连接git上的配置
+
+#配置服务端相当于一个中转站 修改一个 其他客户端都能获取到修改的东西
+
+#配置服务端
+声明远程仓库的地址,连接远程仓库
+    server:
+      port: 3344
+
+    spring:
+      application:
+        name: springcloud_config_server
+    #连接仓库
+      cloud:
+        config:
+          server:
+            git:
+              uri: https://github.com/7-Qwen/spring_cloud_test.git
+
+#用户端可以写一个controller  其中声明需要获取的配置的变量,通过注入的方式完成配置的同步
+#配置用户端
+bootstrap.yml 系统级配置->连接远程(需要配置服务端的uri 配置文件的环境 分支名称 配置的名称
+	spring:
+		cloud:
+			config:
+				name: config-dept
+				lable: master
+				profile: dev
+				uri: http://localhost:3344
+application.yml 用户级配置 ->声明自己的服务名称
+	spring:
+		application:
+			name: springcloud-config-dept-8801
+```
+
+![image-20210409111455247](C:\Users\LENOVO\AppData\Roaming\Typora\typora-user-images\image-20210409111455247.png)
+
+# 学习之路 任重而道远....

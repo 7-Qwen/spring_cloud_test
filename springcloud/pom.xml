@@ -19,6 +19,8 @@
         <module>spring_cloud_consumer_dept_feign</module>
         <module>spring_cloud_provider_dept_hystrix_8001</module>
         <module>spring_cloud_consumer_hystrix_dashboard</module>
+        <module>spring_cloud_zuul_9527</module>
+        <module>spring_cloud_config_server_3344</module>
     </modules>
 
     <!--打包方式-->
